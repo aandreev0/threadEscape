@@ -1,4 +1,4 @@
 class Key:
-    def __init__(self,desc,id):
+    def __init__(self,desc):
         self.description = desc
-        self.id = id
+        self.id = id(self)

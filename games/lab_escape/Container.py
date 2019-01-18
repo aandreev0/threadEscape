@@ -31,7 +31,7 @@ class Container:
 
     def take(self, what):
         if self.closed:
-            return False,"This is closed"
+            return False, "This is closed"
         else:
             if what in self.contents:
                 self.contents.remove(what)
