@@ -25,6 +25,18 @@ print "=========================================================================
 """
 game = Game('Username')
 
+game.parseInput("exit the lab")
+game.parseInput("inventory")
+game.parseInput("open drawer")
+game.parseInput("take key from drawer")
+game.parseInput("inventory")
+game.parseInput("open door")
+game.parseInput("unlock door")
+game.parseInput("look at key")
+
+game.parseInput("open door")
+game.parseInput("exit the lab")
+
 while game.playing:
     inp = raw_input(">")
     game.parseInput(inp)

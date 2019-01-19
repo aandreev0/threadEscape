@@ -20,16 +20,16 @@ class Game:
         self.key = Key(self.DESCRIPTIONS['door_key'])
         self.door = Door(self.DESCRIPTIONS['door'], self.key.id)
         self.drawer = Drawer(self.DESCRIPTIONS['drawer'])
-        self.inventory = []
+
         self.playing = True
         self.actions = 0
-        
+
         print "Started game for "+self.player.name
 
 
     def parseInput(self, s):
         self.actions += 1
-        print(" %03d:\n%s" % (self.actions, self.process(s)))
+        print(" %03d:%s\n%s" % (self.actions, s, self.process(s)))
 
 
     def process(self, inp):
@@ -51,15 +51,10 @@ class Game:
         elif inp=="close drawer":
             return self.drawer.close()
         elif inp=="take key from drawer":
-            res,str = self.drawer.take("key")
-            if res:
-                self.inventory.append("key")
-            return str
+            return self.player.take(self.drawer,'key')
         elif inp=="inventory":
-            if len(self.inventory) > 0:
-                return "Here is your stuff:\n  "+"\n  ".join(self.inventory)
-            else:
-                return "You are carrying nothing of use"
+            return self.player.ShowInventory()
+
         elif inp=="exit lab":
             if self.door.closed:
                 return "The door is closed!"
@@ -73,7 +68,7 @@ class Game:
             return self.door.close()
 
         elif inp=="unlock door":
-            return self.door.unlock()
+            return self.player.unlock(self.door,self.key)
         elif inp=="lock door":
             return self.door.lock()
         elif inp=="look at key":
