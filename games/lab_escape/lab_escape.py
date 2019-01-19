@@ -28,6 +28,8 @@ game = Game('Username')
 game.parseInput("exit the lab")
 game.parseInput("inventory")
 game.parseInput("open drawer")
+game.parseInput("open drawer")
+
 game.parseInput("take key from drawer")
 game.parseInput("inventory")
 game.parseInput("open door")

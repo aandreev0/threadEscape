@@ -17,9 +17,11 @@ class Game:
                 print(exc)
 
         # loading items
-        self.key = Key(self.DESCRIPTIONS['door_key'])
-        self.door = Door(self.DESCRIPTIONS['door'], self.key.id)
+        self.key = Key('door key', self.DESCRIPTIONS['door_key'])
+        self.door = Door(self.DESCRIPTIONS['door'], self.key)
+
         self.drawer = Drawer(self.DESCRIPTIONS['drawer'])
+        self.drawer.add_item(self.key)
 
         self.playing = True
         self.actions = 0
@@ -51,7 +53,7 @@ class Game:
         elif inp=="close drawer":
             return self.drawer.close()
         elif inp=="take key from drawer":
-            return self.player.take(self.drawer,'key')
+            return self.player.take(self.drawer, self.key)
         elif inp=="inventory":
             return self.player.ShowInventory()
 
@@ -68,7 +70,7 @@ class Game:
             return self.door.close()
 
         elif inp=="unlock door":
-            return self.player.unlock(self.door,self.key)
+            return self.player.unlock(self.door)
         elif inp=="lock door":
             return self.door.lock()
         elif inp=="look at key":

@@ -2,7 +2,7 @@ class Container:
     def __init__(self,desc):
         self.description = desc
         self.closed = True
-        self.contents = ["Item 1",'Item 2']
+        self.contents = []
 
     def open(self):
         if self.closed:
@@ -24,17 +24,23 @@ class Container:
             s =  "It is closed"
         else:
             if len(self.contents)>0:
-                s += "There is something in there:\n  " + "\n  ".join(self.contents)
+                print self.contents
+                s += "There is something in there:\n  " + "\n  ".join(map(lambda x: x.name, self.contents))
             else:
                 s+= "Nothing here"
         return s
+
+    def add_item(self,what):
+        self.contents.append(what)
+    def remove_item(self,what):
+        self.contents.remove(what)
 
     def take(self, what):
         if self.closed:
             return False, "This is closed"
         else:
             if what in self.contents:
-                self.contents.remove(what)
-                return True, "You took "+ what + ". Good idea, might come in handy!"
+                self.remove_item(what)
+                return True, "You took "+ what.name + ". Good idea, might come in handy!"
             else:
-                return False, "There is no "+what+ " here"
+                return False, "There is no "+what.name+ " here"

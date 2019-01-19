@@ -5,16 +5,16 @@ class Door:
             return "Door is now unlocked"
         else:
             self.locked = True
-    def unlock(self, key):
-        if self.keyID == key.id:
+    def unlock(self, who):
+        if self.key in who.inventory:
             if self.locked:
                 self.locked = False
-                key.use()
+                self.key.use()
                 return "Door is now unlocked"
             else:
                 return "Door is already unlocked"
         else:
-            return "Wrong key"
+            return "You don't have the right key"
 
     def open(self):
         if self.locked:
@@ -36,8 +36,8 @@ class Door:
     def description(self):
         return self.init_description + "\n   Door is "+ ("" if self.locked else "un") +"locked with key " + str(self.keyID)
 
-    def __init__(self, desc, keyID):
+    def __init__(self, desc, key):
         self.init_description = desc
         self.locked = True
-        self.keyID = keyID
+        self.key = key
         self.closed = True
