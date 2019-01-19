@@ -11,33 +11,7 @@ print "=========================================================================
 print "== ESCAPE LAB == ADVENTURE GAME == USE WHATEVER YOU CAN FIND TO GET OUT OF HERE =="
 print "=================================================================================="
 
-"""
-#   Sample game, uncomment to run
-    act("exit the lab")
-    act("inventory")
-    act("open drawer")
-    act("take key from drawer")
-    act("inventory")
-    act("open door")
-    act("unlock door")
-    act("open door")
-    act("exit the lab")
-"""
 game = Game('Username')
-
-game.parseInput("exit the lab")
-game.parseInput("inventory")
-game.parseInput("open drawer")
-game.parseInput("open drawer")
-
-game.parseInput("take key from drawer")
-game.parseInput("inventory")
-game.parseInput("open door")
-game.parseInput("unlock door")
-game.parseInput("look at key")
-
-game.parseInput("open door")
-game.parseInput("exit the lab")
 
 while game.playing:
     inp = raw_input(">")
