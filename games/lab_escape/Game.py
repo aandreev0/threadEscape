@@ -3,14 +3,14 @@ from Door import Door
 from Key import Key
 from Drawer import Drawer
 from Mob import Mob
-
+import os
 class Game:
-    def __init__(self, playerName):
+    def __init__(self, playerName, clientID):
         # initializing player
         self.player = Mob(playerName)
-
+        self.clientID = clientID
         # loading descriptions
-        with open("descriptions.yaml", 'r') as stream:
+        with open(os.path.dirname(__file__)+"/descriptions.yaml" , 'r') as stream:
             try:
                 self.DESCRIPTIONS = yaml.load(stream)
             except yaml.YAMLError as exc:
@@ -31,7 +31,7 @@ class Game:
 
     def parseInput(self, s):
         self.actions += 1
-        print(" %03d:%s\n%s" % (self.actions, s, self.process(s)))
+        return(" %03d>%s\n%s" % (self.actions, s, self.process(s)))
 
 
     def process(self, inp):
