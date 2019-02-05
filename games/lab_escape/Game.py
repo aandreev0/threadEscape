@@ -3,6 +3,7 @@ from Door import Door
 from Key import Key
 from Drawer import Drawer
 from Mob import Mob
+from Puzzle import Puzzle
 import os
 class Game:
     def __init__(self, playerName, clientID):
@@ -22,6 +23,10 @@ class Game:
 
         self.drawer = Drawer(self.DESCRIPTIONS['drawer'])
         self.drawer.add_item(self.key)
+
+        self.solution = Key('puzzle solution', "This is a solution to a puzzle")
+        self.drawer.add_item(self.solution)
+        self.puzzle = Puzzle("Some puzzle",self.solution)
 
         self.playing = True
         self.actions = 0
@@ -75,5 +80,9 @@ class Game:
             return self.door.lock()
         elif inp=="look at key":
             return self.key.description
+        elif inp=="take solution from drawer":
+            return self.player.take(self.drawer, self.solution)
+        elif inp=="solve puzzle":
+            return self.puzzle.solve(self.player)
         else:
             return "Hmm, I don't know that one"
