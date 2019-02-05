@@ -1,7 +1,9 @@
-class Mob:
-    def __init__(self,name):
-        self.name = name
+from Object import Object
+class Mob(Object):
+    def __init__(self, name, desc):
+        Object.__init__(self,name,desc)
         self.inventory = []
+        self.room = False
 
     def ShowInventory(self):
         if len(self.inventory) > 0:
@@ -25,3 +27,13 @@ class Mob:
         self.inventory.append(what)
     def remove_item(self,what):
         self.inventory.remove(what)
+
+    def look(self, object):
+        return object.appearance(self)
+
+    def goto(self, room):
+        if self.room:
+            self.room.remove_mob(self)
+
+        self.room = room
+        room.add_mob(self)

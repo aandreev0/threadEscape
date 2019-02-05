@@ -1,7 +1,7 @@
-class Key:
+from Object import Object
+class Key(Object):
     def __init__(self, name, desc):
-        self.description = desc
+        Object.__init__(self,name,desc)
         self.id = id(self)
-        self.name = name
     def use(self):
         self.description = "This key was used already."

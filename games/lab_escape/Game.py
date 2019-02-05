@@ -4,12 +4,11 @@ from Key import Key
 from Drawer import Drawer
 from Mob import Mob
 from Puzzle import Puzzle
+from Room import Room
 import os
 class Game:
     def __init__(self, playerName, clientID):
-        # initializing player
-        self.player = Mob(playerName)
-        self.clientID = clientID
+
         # loading descriptions
         with open(os.path.dirname(__file__)+"/descriptions.yaml" , 'r') as stream:
             try:
@@ -17,11 +16,22 @@ class Game:
             except yaml.YAMLError as exc:
                 print(exc)
 
+
+        self.room = Room('Laboratory', self.DESCRIPTIONS['room'])
+
+        # initializing player
+        self.player = Mob(playerName, 'Lost soul, trying to get out of here')
+        self.player.goto(self.room)
+        self.clientID = clientID
+
+        self.student = Mob('Student', 'Bored student crying in the corner')
+        self.student.goto(self.room)
+
         # loading items
         self.key = Key('door key', self.DESCRIPTIONS['door_key'])
-        self.door = Door(self.DESCRIPTIONS['door'], self.key)
+        self.door = Door('Door leading outside', self.DESCRIPTIONS['door'], self.key)
 
-        self.drawer = Drawer(self.DESCRIPTIONS['drawer'])
+        self.drawer = Drawer('desk drawer', self.DESCRIPTIONS['drawer'])
         self.drawer.add_item(self.key)
 
         self.solution = Key('puzzle solution', "This is a solution to a puzzle")
@@ -43,14 +53,16 @@ class Game:
         inp = inp.replace(' the ',' ')
         #print ">>"+inp+"<<"
         if inp == 'look':
-            return self.DESCRIPTIONS['room']
+            return self.player.look(self.room)
+        elif inp == 'look at student':
+            return self.player.look(self.student)
         elif inp == 'look at desk':
             return self.DESCRIPTIONS['desk']
         elif inp == 'look at door':
-            return self.door.description()
+            return self.player.look(self.door)
 
         elif inp=="look at drawer":
-            return self.drawer.description
+            return self.player.look(self.drawer)
         elif inp=="inspect drawer":
             return self.drawer.inspect()
         elif inp=="open drawer":
@@ -79,7 +91,7 @@ class Game:
         elif inp=="lock door":
             return self.door.lock()
         elif inp=="look at key":
-            return self.key.description
+            return self.player.look(self.key)
         elif inp=="take solution from drawer":
             return self.player.take(self.drawer, self.solution)
         elif inp=="solve puzzle":

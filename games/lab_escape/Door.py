@@ -1,4 +1,12 @@
-class Door:
+from Object import Object
+class Door(Object):
+    def __init__(self, name, desc, key):
+        Object.__init__(self,name,desc)
+        self.init_description = desc
+        self.locked = True
+        self.key = key
+        self.closed = True
+
     def lock(self):
         if self.locked:
             return "Door is already locked"
@@ -33,11 +41,6 @@ class Door:
         else:
             return "It's already closed"
 
-    def description(self):
-        return self.init_description + "\n   Door is "+ ("" if self.locked else "un") +"locked with key " + str(self.keyID)
-
-    def __init__(self, desc, key):
-        self.init_description = desc
-        self.locked = True
-        self.key = key
-        self.closed = True
+    def appearance(self, mob):
+        return self.init_description + "\n   Door is "+ ("" if self.locked else "un") +\
+               "locked with key " + str(self.key) + " sitting in container " + str(self.key.container)

@@ -1,7 +1,7 @@
 from Container import Container
 class Drawer(Container):
-    def __init__(self,desc):
-        Container.__init__(self,desc)
+    def __init__(self,name, desc):
+        Container.__init__(self,name,desc)
         self.ever_opened = False
         self.contents = []
         self.player_warned = False

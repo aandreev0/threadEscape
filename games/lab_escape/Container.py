@@ -1,6 +1,7 @@
-class Container:
-    def __init__(self,desc):
-        self.description = desc
+from Object import Object
+class Container(Object):
+    def __init__(self, name, desc):
+        Object.__init__(self,name, desc)
         self.closed = True
         self.contents = []
 
@@ -32,8 +33,10 @@ class Container:
 
     def add_item(self,what):
         self.contents.append(what)
+        what.container = self
     def remove_item(self,what):
         self.contents.remove(what)
+        what.container = False
 
     def take(self, what):
         if self.closed:
