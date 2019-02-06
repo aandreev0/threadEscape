@@ -3,4 +3,4 @@ door: "The door has a small window, through which you can clearly see hallway. Y
 door_key: "Small key for some door, probably. If you TAKE the KEY you might be able to UNLOCK the DOOR"
 desk: "Large desk covered in stacks of paper. There is only one drawer."
 drawer: "Desk drawer is closed, but something rattles inside. Maybe you can try to OPEN the DRAWER"
-void: "This space is complete void, with no matter or energy in sight. Even time seems to have stopped here."
+void: "This space is complete void, with no matter or energy in sight. Even time seems to have stopped here.\nIt's kinda scary, but you can GO BACK to the lab"

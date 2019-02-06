@@ -13,6 +13,8 @@ class Mob(Object):
 
     def unlock(self, door):
         return door.unlock(self)
+    def lock(self, door):
+        return door.lock(self)
 
 
     def take(self, container, what):
@@ -20,12 +22,25 @@ class Mob(Object):
         # if hands free: etc...
         res, str = container.take(what)
         if res:
-            self.add_item(what)
+            self.add_object(what)
         return str
+    def put(self,what,where):
+        if what in self.inventory:
+            self.remove_object(what)
+            where.add_object(what)
+            if what.__class__.__name__ == 'Room':
+                return ("You put %s on the ground" % str(what))
+            else:
+                return ("You put %s into %s" % (str(what),str(where)))
+        else:
+            return "You don't have "+str(what)
 
-    def add_item(self,what):
+    def drop(self,what):
+        return self.put(what, self.room)
+
+    def add_object(self,what):
         self.inventory.append(what)
-    def remove_item(self,what):
+    def remove_object(self,what):
         self.inventory.remove(what)
 
     def look(self, object):
@@ -37,3 +52,6 @@ class Mob(Object):
         self.room = room
         room.add_object(self)
         return self.look(self.room)
+    #def apperance(self,mob):
+    def can_see(self,what):
+        return True

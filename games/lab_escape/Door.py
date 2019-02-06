@@ -7,12 +7,16 @@ class Door(Object):
         self.key = key
         self.closed = True
 
-    def lock(self):
-        if self.locked:
-            return "Door is already locked"
-            return "Door is now unlocked"
+    def lock(self, who):
+        if self.key in who.inventory:
+            if  self.locked:
+                return "Door is already unlocked"
+            else:
+                self.locked = False
+                return "Door is now locked"
         else:
-            self.locked = True
+            return "You don't have the right key"
+
     def unlock(self, who):
         if self.key in who.inventory:
             if self.locked:

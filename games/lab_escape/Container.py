@@ -31,10 +31,10 @@ class Container(Object):
                 s+= "Nothing here"
         return s
 
-    def add_item(self,what):
+    def add_object(self,what):
         self.contents.append(what)
         what.container = self
-    def remove_item(self,what):
+    def remove_object(self,what):
         self.contents.remove(what)
         what.container = False
 
@@ -43,7 +43,7 @@ class Container(Object):
             return False, "This is closed"
         else:
             if what in self.contents:
-                self.remove_item(what)
+                self.remove_object(what)
                 return True, "You took "+ what.name + ". Good idea, might come in handy!"
             else:
                 return False, "There is no "+what.name+ " here"
