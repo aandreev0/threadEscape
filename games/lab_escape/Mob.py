@@ -4,7 +4,7 @@ class Mob(Object):
         Object.__init__(self,name,desc)
         self.inventory = []
         self.room = False
-
+        self.blind = False
     def ShowInventory(self):
         if len(self.inventory) > 0:
             return "Here is your stuff:\n  "+"\n  ".join(map(lambda x: x.name, self.inventory))
@@ -33,7 +33,7 @@ class Mob(Object):
 
     def goto(self, room):
         if self.room:
-            self.room.remove_mob(self)
-
+            self.room.remove_object(self)
         self.room = room
-        room.add_mob(self)
+        room.add_object(self)
+        return self.look(self.room)
