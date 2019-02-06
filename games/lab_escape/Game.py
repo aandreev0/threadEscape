@@ -17,19 +17,20 @@ class Game:
                 print(exc)
 
 
-        self.room = Room('Laboratory', self.DESCRIPTIONS['room'])
+        self.laboratory = Room('Laboratory', self.DESCRIPTIONS['room'])
+        self.void = Room('Void in the middle of the Universe', self.DESCRIPTIONS['void'])
 
         # initializing player
         self.player = Mob(playerName, 'Lost soul, trying to get out of here')
-        self.player.goto(self.room)
+        self.player.goto(self.laboratory)
         self.clientID = clientID
 
         self.student = Mob('Student', 'Bored student crying in the corner')
-        self.student.goto(self.room)
+        self.student.goto(self.laboratory)
 
         # loading items
         self.key = Key('door key', self.DESCRIPTIONS['door_key'])
-        self.door = Door('Door leading outside', self.DESCRIPTIONS['door'], self.key)
+        self.door = Door('Door leading outside, try LOOK AT the DOOR', self.DESCRIPTIONS['door'], self.key)
 
         self.drawer = Drawer('desk drawer', self.DESCRIPTIONS['drawer'])
         self.drawer.add_item(self.key)
@@ -51,50 +52,51 @@ class Game:
 
     def process(self, inp):
         inp = inp.replace(' the ',' ')
-        #print ">>"+inp+"<<"
         if inp == 'look':
-            return self.player.look(self.room)
-        elif inp == 'look at student':
-            return self.player.look(self.student)
-        elif inp == 'look at desk':
-            return self.DESCRIPTIONS['desk']
-        elif inp == 'look at door':
-            return self.player.look(self.door)
+            return self.player.look(self.player.room)
 
-        elif inp=="look at drawer":
-            return self.player.look(self.drawer)
-        elif inp=="inspect drawer":
-            return self.drawer.inspect()
-        elif inp=="open drawer":
-            return self.drawer.open()
-        elif inp=="close drawer":
-            return self.drawer.close()
-        elif inp=="take key from drawer":
-            return self.player.take(self.drawer, self.key)
-        elif inp=="inventory":
-            return self.player.ShowInventory()
+        if self.player.room == self.laboratory:
+            if inp == 'look at student':
+                return self.player.look(self.student)
+            elif inp == 'look at desk':
+                return self.DESCRIPTIONS['desk']
+            elif inp == 'look at door':
+                return self.player.look(self.door)
 
-        elif inp=="exit lab":
-            if self.door.closed:
-                return "The door is closed!"
+            elif inp=="look at drawer":
+                return self.player.look(self.drawer)
+            elif inp=="inspect drawer":
+                return self.drawer.inspect()
+            elif inp=="open drawer":
+                return self.drawer.open()
+            elif inp=="close drawer":
+                return self.drawer.close()
+            elif inp=="take key from drawer":
+                return self.player.take(self.drawer, self.key)
+            elif inp=="inventory":
+                return self.player.ShowInventory()
+            elif inp=="open door":
+                return self.door.open()
+            elif inp=="close door":
+                return self.door.close()
+
+            elif inp=="unlock door":
+                return self.player.unlock(self.door)
+            elif inp=="lock door":
+                return self.door.lock()
+            elif inp=="look at key":
+                return self.player.look(self.key)
+            elif inp=="take solution from drawer":
+                return self.player.take(self.drawer, self.solution)
+            elif inp=="solve puzzle":
+                return self.puzzle.solve(self.player)
+            elif inp=="exit lab":
+                if self.door.closed:
+                    return "The door is closed!"
+                else:
+
+                    return "You went through the open door...\n"+self.player.goto(self.void)
             else:
-                self.playing = False
-                return "Congratualtions, you escaped the lab!"
-
-        elif inp=="open door":
-            return self.door.open()
-        elif inp=="close door":
-            return self.door.close()
-
-        elif inp=="unlock door":
-            return self.player.unlock(self.door)
-        elif inp=="lock door":
-            return self.door.lock()
-        elif inp=="look at key":
-            return self.player.look(self.key)
-        elif inp=="take solution from drawer":
-            return self.player.take(self.drawer, self.solution)
-        elif inp=="solve puzzle":
-            return self.puzzle.solve(self.player)
-        else:
+                return "Hmm, I don't know that one"
+        else: # we are in void
             return "Hmm, I don't know that one"

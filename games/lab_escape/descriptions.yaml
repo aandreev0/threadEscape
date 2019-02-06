@@ -1,5 +1,6 @@
-room: "Laboratory is filled with all kind of equipment and storage spaces.\nIn the middle of the room you see large desk with computer, couple of drawers, and piles of papers.\nWall behind you is occupoied by an enormous bookcase.\n   There is a door leading outside, you should LOOK AT the DOOR"
+room: "Laboratory is filled with all kind of equipment and storage spaces.\nIn the middle of the room you see large desk with computer, couple of drawers, and piles of papers.\nWall behind you is occupoied by an enormous bookcase.\nThere is a door leading outside, you should LOOK AT the DOOR"
 door: "The door has a small window, through which you can clearly see hallway. You can EXIT LAB through that door"
 door_key: "Small key for some door, probably. If you TAKE the KEY you might be able to UNLOCK the DOOR"
 desk: "Large desk covered in stacks of paper. There is only one drawer."
 drawer: "Desk drawer is closed, but something rattles inside. Maybe you can try to OPEN the DRAWER"
+void: "This space is complete void, with no matter or energy in sight. Even time seems to have stopped here."
