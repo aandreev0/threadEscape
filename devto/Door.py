@@ -10,7 +10,7 @@ class Door(Object):
         if self.unlocked:
             if not self.opened:
                 self.opened = True
-                return "Door is no open"
+                return "Door is now open"
             else:
                 return "Door is already open"
         else:

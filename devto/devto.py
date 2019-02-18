@@ -1,4 +1,5 @@
 from Object import Object
+from Door import Door
 
 room = Object('Big laboratory room with one door')
 
@@ -13,7 +14,8 @@ drawer.add_item(key)
 drawer.add_item(papers)
 
 player = Object('You, trying to escape this weird place')
-
+door = Door('Door leading to freedom', key)
+room.add_item(door)
 room.add_item(desk)
 room.add_item(player)
 
@@ -25,7 +27,7 @@ def parseInput(s):
         room_description += room.inspect()
         return True, room_description
     elif s =="exit the lab":
-        if door.is_open():
+        if door.opened:
             return False, "Congratulations, you've escaped the lab!"
         else:
             return True, "Door is closed"
