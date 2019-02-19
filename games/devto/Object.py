@@ -1,7 +1,12 @@
 class Object():
     def __init__(self,description):
         self.contents = []
-        self.description = description
+        if type(description) is str:
+            split_desc = description.split(' ')
+            description = [split_desc[0], description]
+
+        self.short_name = description[0]
+        self.description = description[1]
 
     def add_item(self,item):
         self.contents.append(item)

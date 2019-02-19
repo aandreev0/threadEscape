@@ -14,7 +14,7 @@ drawer.add_item(key)
 drawer.add_item(papers)
 
 player = Object('You, trying to escape this weird place')
-door = Door('Door leading to freedom', key)
+door = Door(['Scary door','Door leading to freedom'], key)
 room.add_item(door)
 room.add_item(desk)
 room.add_item(player)
@@ -30,7 +30,11 @@ def parseInput(s):
         if door.opened:
             return False, "Congratulations, you've escaped the lab!"
         else:
-            return True, "Door is closed"
+            return True, "Door leading outside is closed"
+    elif s=='open the door':
+        return True, door.open(player)
+    elif s=='unlock the door':
+        return True, door.unlock(player)
     else:
         return True, "Sorry, I don't know what you mean."
 
