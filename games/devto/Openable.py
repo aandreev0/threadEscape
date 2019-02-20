@@ -1,7 +1,5 @@
-from Object import Object
-class Openable(Object):
-    def __init__(self,description,key):
-      Object.__init__(self,description)
+class Openable():
+    def __init__(self,key):
       self.key = key
       self.unlocked = False
       self.opened = False

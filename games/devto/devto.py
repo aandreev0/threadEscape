@@ -1,10 +1,14 @@
 from Object import Object
 from Door import Door
+from Room import Room
+from Mob import Mob
+from Drawer import Drawer
+from Container import Container
+from Desk import Desk
+room = Room(['Laboratory','Big laboratory room with one door'])
 
-room = Object('Big laboratory room with one door')
-
-desk   = Object('Desk with one drawer')
-drawer = Object('Drawer with some stuff inside')
+desk   = Desk('Desk with one drawer')
+drawer = Drawer('Drawer with some stuff inside')
 desk.add_item(drawer)
 
 
@@ -13,7 +17,7 @@ papers = Object('Bunch of useless papers')
 drawer.add_item(key)
 drawer.add_item(papers)
 
-player = Object('You, trying to escape this weird place')
+player = Mob('You, trying to escape this weird place')
 door = Door(['Scary door','Door leading to freedom'], key)
 room.add_item(door)
 room.add_item(desk)
@@ -35,6 +39,8 @@ def parseInput(s):
         return True, door.open(player)
     elif s=='unlock the door':
         return True, door.unlock(player)
+    elif s=='open the drawer':
+        return True, drawer.open(player)
     else:
         return True, "Sorry, I don't know what you mean."
 
